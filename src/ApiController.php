@@ -63,6 +63,13 @@ class ApiController extends \Illuminate\Routing\Controller
 	 */
 	private $query = null;
 
+	/**
+	 * Modify select for query 
+	 *
+	 * @var string
+	 */
+	protected $modifySelect = false;
+
 
 	/**
 	 * Form request to validate index request
@@ -568,12 +575,21 @@ class ApiController extends \Illuminate\Routing\Controller
 
 		$this->parser->setFields($fields);
 
+
 		if (!$single) {
 			/** @var Collection $results */
-			$results = $this->query->select($fields)->get();
+			$results = $this->query;
+			if (!$this->modifySelect) {
+				$results = $results->select($fields);
+			}
+			$results = $results->get();
 		} else {
 			/** @var Collection $results */
-			$results = $this->query->select($fields)->skip(0)->take(1)->get();
+			$results = $this->query;
+			if (!$this->modifySelect) {
+				$results = $results->select($fields);
+			}
+			$results = $results->skip(0)->take(1)->get();
 
 			if ($results->count() == 0) {
 				throw new ResourceNotFoundException();
