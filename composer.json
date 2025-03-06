@@ -3,7 +3,7 @@
     "description": "RestAPI plugin",
     "type": "library",
     "require": {
-        "laravel/framework": "5.6.*|5.7.*|5.8.*|6.*|7.*|8.*|9.*|10.*"
+        "laravel/framework": "5.6.*|5.7.*|5.8.*|6.*|7.*|8.*|9.*|10.*|11.*"
     },
     "license": "MIT",
     "autoload": {
