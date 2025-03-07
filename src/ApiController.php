@@ -404,9 +404,15 @@ class ApiController extends \Illuminate\Routing\Controller
 					$appends = call_user_func(get_class($q->getRelated()) . "::getAppendFields");
 					$relations[$key]["appends"] = $appends;
 
-					if (!in_array($primaryKey, $fields)) {
-						$fields[] = $primaryKey;
-					}
+					// if (!in_array($primaryKey, $fields)) {
+					// 	$fields[] = $primaryKey;
+					// }
+
+					if (in_array($primaryKey, $fields)) {
+						$fields = array_filter($fields, function ($field) use ($primaryKey) {
+						    return $field !== $primaryKey;
+						});
+				    	}
 
 					$fields = array_map(function ($name) use ($tableName) {
 						return $tableName . "." . $name;
